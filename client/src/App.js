@@ -4,14 +4,15 @@ import RegisterPage from "./components/RegisterPage/RegisterPage";
 import LoadingPage from "./components/LoadingPage/LoadingPage";
 import Navbar from "./components/Navbar/Navbar";
 import LoginPage from "./components/LoginPage/LoginPage";
+import Auth from "./hoc/Auth";
 
 function App() {
   return (
     <Routes>
       <Route element={<Navbar />}>
-        <Route path="/" element={<LoadingPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/" element={Auth(LoadingPage, null)} />
+        <Route path="/register" element={Auth(RegisterPage, false)} />
+        <Route path="/login" element={Auth(LoginPage, false)} />
       </Route>
     </Routes>
   );

@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { loginUser } from "../../user_actions/user_actions";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onEamilHandle = (e) => {
     setEmail(e.target.value);
@@ -24,7 +26,15 @@ function LoginPage() {
       Password: Password,
     };
 
-    dispatch(loginUser(body));
+    dispatch(loginUser(body)).then((res) => {
+      console.log(res);
+      if (res.payload) {
+        alert("로그인 성공");
+        navigate("/");
+      } else {
+        alert("로그인 실패");
+      }
+    });
   };
 
   return (
